@@ -1,0 +1,6 @@
+{
+  "databaseURL": "https://goulkan1-s-workspace-iifqbk.us-east-1.xata.sh/db/astro",
+  "codegen": {
+    "output": "src/xata.ts"
+  }
+}

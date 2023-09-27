@@ -2,32 +2,59 @@
 import { Image } from "astro:assets";
 ---
 
-<header
-    class="flex justify-between items-center px-24 py-12 max-sm:px-5 max-sm:py-10 max-w-7xl justify-self-center w-full"
->
-    <a href="/" class="flex gap-x-4 items-center">
-        <Image
-            src="/images/heartbeat.png"
-            alt="rhythm nation logo"
-            width={64}
-            height={64}
-            format="webp"
-            class="w-16"
-        />
-
-        <p class="uppercase text-3xl text-zinc-900">blog</p>
-    </a>
-
-    <a href="/home" class="bg-teal-900 text-white py-3 px-6 rounded-xl text-xl">
-        Home
-    </a>
-    <a
-        href="/about"
-        class="bg-teal-900 text-white py-3 px-6 rounded-xl text-xl"
-    >
-        about
-    </a>
-    <a href="/blog" class="bg-teal-900 text-white py-3 px-6 rounded-xl text-xl">
-        blog
-    </a>
+<header class="header">
+    <div class="container">
+        <div class="logo">
+            <a href="/">
+                <Image
+                    src="/images/logo.svg"
+                    alt="rhythm nation logo"
+                    width={64}
+                    height={64}
+                    format="webp"
+                    class="w-16"
+                />
+            </a>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/about">About</a></li>
+                <li><a href="/blog">Blog</a></li>
+                <li><a href="/showcase">ShowCase</a></li>
+            </ul>
+        </nav>
+    </div>
 </header>
+
+<style>
+    .header {
+        height: 70px;
+        background: var(--color-primary);
+    }
+
+    .header .container {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 20px;
+    }
+
+    .header img {
+        height: 35px;
+        vertical-align: middle;
+    }
+
+    .header nav ul {
+        display: flex;
+    }
+
+    .header nav ul li {
+        padding: 0 10px;
+    }
+
+    .header nav ul li a {
+        color: #fff;
+    }
+</style>

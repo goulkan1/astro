@@ -1,48 +1,63 @@
 ---
 import Layout from "../layouts/Layout.astro";
 
+import Card from "../components/Card.astro";
 import H1 from "../components/H1.astro";
 import Main from "../components/Main.astro";
-import Nav from '../components/Nav';
 
-const res = await fetch("https://pokeapi.co/api/v2/pokemon?limit=151");
+const res = await fetch("https://rickandmortyapi.com/api/character");
 const resJson = await res.json();
-const pokemons = resJson.results.map((pokemon: any) => {
-	const name = pokemon.name;
+const pokemons = resJson.results.map((data: any) => {
+	const name = data.name;
 	// https://pokeapi.co/api/v2/pokemon/1/
-	const url = pokemon.url;
+	const url = data.url;
+	const image = data.image;
 	const id = url.split("/")[url.split("/").length - 1];
+
 	return {
 		name,
 		url,
 		id,
+		image,
 	};
 });
 ---
 
-<Nav />
 <Layout title="Welcome to Astro." , image="">
-	<ul class="plain-list pokeList">
-		{
-			pokemons.map((pokemon: any) => (
-				<li class="pokemonListItem"}>
-					<a
-						class="pokemonContainer"
-						href={`/pokemon/${pokemon.name}`}
-					>
-						<p class="pokemonId">No. {pokemon.id}</p>
-						<img
-							class="pokemonImage"
-							src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.id}.png`}
-							alt={`${pokemon.name} picture`}
-						/>
-						<h2 class="pokemonName">{pokemon.name}</h2>
-					</a>
-				</li>
-			))
-		}
-	</ul>
+	<section class="features">
+		<div class="container">
+			{
+				pokemons.map((data: any) => (
+					<Card>
+						<a href={`/character/${data.name}`}>
+							<h2 class="text-2xl">{data.name}</h2>
+							<img
+								src={data.image}
+								alt={`${data.name} picture`}
+							/>
+						</a>
+					</Card>
+				))
+			}
+		</div>
+	</section>
 	<Main>
 		<H1 text="h1 ini bos" />
 	</Main>
 </Layout>
+
+<style>
+	.features .container {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		grid-gap: 20px;
+		padding: 0 20px;
+		margin: 30px auto;
+	}
+
+	@media (max-width: 500px) {
+		.features .container {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>

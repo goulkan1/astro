@@ -1,0 +1,22 @@
+---
+import Features from "../components/Features.astro";
+import Main from "../components/Main.astro";
+import SshowCase from "../components/ShowCase.astro";
+import Tabs from "../components/Tabs.astro";
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout>
+    <Main>
+        <SshowCase />
+        <Features />
+        <Tabs
+            headings={["NPM", "PNPM", "YARN"]}
+            contents={[
+                "$ npm create astro@latest",
+                "$ pnpm create astro@latest",
+                "$ yarn create astro",
+            ]}
+        />
+    </Main>
+</Layout>

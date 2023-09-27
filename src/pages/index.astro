@@ -3,9 +3,45 @@ import Layout from "../layouts/Layout.astro";
 
 import H1 from "../components/H1.astro";
 import Main from "../components/Main.astro";
+import Nav from '../components/Nav';
+
+const res = await fetch("https://pokeapi.co/api/v2/pokemon?limit=151");
+const resJson = await res.json();
+const pokemons = resJson.results.map((pokemon: any) => {
+	const name = pokemon.name;
+	// https://pokeapi.co/api/v2/pokemon/1/
+	const url = pokemon.url;
+	const id = url.split("/")[url.split("/").length - 1];
+	return {
+		name,
+		url,
+		id,
+	};
+});
 ---
 
+<Nav />
 <Layout title="Welcome to Astro." , image="">
+	<ul class="plain-list pokeList">
+		{
+			pokemons.map((pokemon: any) => (
+				<li class="pokemonListItem"}>
+					<a
+						class="pokemonContainer"
+						href={`/pokemon/${pokemon.name}`}
+					>
+						<p class="pokemonId">No. {pokemon.id}</p>
+						<img
+							class="pokemonImage"
+							src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.id}.png`}
+							alt={`${pokemon.name} picture`}
+						/>
+						<h2 class="pokemonName">{pokemon.name}</h2>
+					</a>
+				</li>
+			))
+		}
+	</ul>
 	<Main>
 		<H1 text="h1 ini bos" />
 	</Main>
